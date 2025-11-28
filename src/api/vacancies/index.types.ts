@@ -4,3 +4,14 @@ export interface Vacancy {
   description: string;
   date: string;
 }
+
+export interface PaginatedVacancies {
+  data: Vacancy[];
+  total: number;
+  page: number;
+  limit: number;
+}
+
+export interface FilterValue {
+  search: string
+}

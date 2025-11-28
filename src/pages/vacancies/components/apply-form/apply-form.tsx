@@ -1,15 +1,17 @@
 import React, { useState } from "react";
 import { useForm, Controller } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Form, Input, Button, Upload, message } from "antd";
-import { UploadOutlined } from "@ant-design/icons";
+import { Form, Input, Button, Upload, message, Progress } from "antd";
+import { InboxOutlined } from "@ant-design/icons";
 import { applyFormSchema } from "@/schema/index";
 import type { ApplyFormInputs, ApplyFormProps } from "./index.types";
 import { applyFormDefaultvalues } from "@/data";
 
+
 const ApplyForm: React.FC<ApplyFormProps> = ({ onFinish }) => {
   const [pdfUrl, setPdfUrl] = useState<string | null>(null);
   const [showPreview, setShowPreview] = useState(false);
+  const [uploadProgress, setUploadProgress] = useState<number>(0);
 
   const {
     control,
@@ -22,17 +24,37 @@ const ApplyForm: React.FC<ApplyFormProps> = ({ onFinish }) => {
   });
 
   const pdfUploadProps = {
-    beforeUpload: (file: File) => {
-      if (file.type !== "application/pdf") {
-        message.error("მხოლოდ PDF ფაილი არის დასაშვები!");
-        return false;
-      }
-      const url = URL.createObjectURL(file);
-      setPdfUrl(url);
-      setShowPreview(false); 
-      return false; 
-    },
     maxCount: 1,
+    customRequest: async (options: any) => {
+      const { file, onSuccess, onError, onProgress } = options;
+      try {
+        if (file.type !== "application/pdf") {
+          message.error("მხოლოდ PDF ფაილი არის დასაშვები!");
+          return onError?.(new Error("Invalid file type"));
+        }
+        const simulateUpload = () => {
+          let progress = 0;
+          const interval = setInterval(() => {
+            progress += 10;
+            setUploadProgress(progress);
+
+            onProgress?.({ percent: progress });
+
+            if (progress >= 100) {
+              clearInterval(interval);
+              const url = URL.createObjectURL(file);
+              setPdfUrl(url);
+              onSuccess?.("ok");
+            }
+          }, 150);
+        };
+
+        simulateUpload();
+      } catch (error) {
+        console.error(error);
+        onError?.(error);
+      }
+    },
   };
 
   const onSubmit = (data: ApplyFormInputs) => {
@@ -96,13 +118,33 @@ const ApplyForm: React.FC<ApplyFormProps> = ({ onFinish }) => {
               validateStatus={errors.resume ? "error" : ""}
               help={errors.resume?.message as string}
             >
-              <Upload
+              <Upload.Dragger
                 {...pdfUploadProps}
                 fileList={field.value}
-                onChange={({ fileList }) => field.onChange(fileList)}
+                onChange={({ file, fileList }) => {
+                  field.onChange(fileList);
+
+                  if (file.status === "removed") {
+                    setUploadProgress(0);
+                    setPdfUrl(null);
+                    setShowPreview(false);
+                  }
+                }}
               >
-                <Button icon={<UploadOutlined />}>ატვირთეთ PDF</Button>
-              </Upload>
+                <p className="ant-upload-drag-icon">
+                  <InboxOutlined />
+                </p>
+                <p className="ant-upload-text">
+                  ჩააგდეთ PDF ფაილი ან დააკლიკეთ ატვირთვისთვის
+                </p>
+                <p className="ant-upload-hint">მხოლოდ PDF ფაილია დასაშვები</p>
+              </Upload.Dragger>
+              {uploadProgress > 0 && (
+                <Progress
+                  percent={uploadProgress}
+                  status={uploadProgress === 100 ? "success" : "active"}
+                />
+              )}
 
               {pdfUrl && (
                 <Button
