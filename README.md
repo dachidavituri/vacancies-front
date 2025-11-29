@@ -1,73 +1,117 @@
-# React + TypeScript + Vite
+# Gstore Careers Platform
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This project is a small career application system built with modern frontend architecture. It includes:
 
-Currently, two official plugins are available:
+* Careers Page (Frontend)
+* Application Form Modal (with validation and CV upload)
+* Admin Panel for reviewing applications
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+---
 
-## React Compiler
+## 📁 Project Structure
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default defineConfig([
-  globalIgnores(["dist"]),
-  {
-    files: ["**/*.{ts,tsx}"],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ["./tsconfig.node.json", "./tsconfig.app.json"],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-]);
+```
+/src
+  /api
+  /data
+  /lib
+  /routes
+  /schema
+  /react-query
+  /components
+  /pages
+    - about
+    - admin
+    - not-found
+    - vacancies
+  /data
+    - index.ts
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+---
 
-```js
-// eslint.config.js
-import reactX from "eslint-plugin-react-x";
-import reactDom from "eslint-plugin-react-dom";
+## 🚀 Features
 
-export default defineConfig([
-  globalIgnores(["dist"]),
-  {
-    files: ["**/*.{ts,tsx}"],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs["recommended-typescript"],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ["./tsconfig.node.json", "./tsconfig.app.json"],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-]);
+### 1. Careers Page (`/vacancies`)
+
+Displays all open Gstore vacancies.
+Each vacancy card includes:
+
+* Title
+* Short description
+* **Apply** button (opens Modal).
+
+---
+
+#### Validation Rules
+
+* All fields are required
+* Email must be valid
+* Phone must be valid
+* Only **PDF** file type allowed
+
+#### Additional
+
+* Shows success/error messages
+* Modern, clean UI
+
+---
+
+### 3. Admin Panel (`/admin/applications`)
+
+Displays candidate submissions in a table:
+
+**Columns:**
+
+* Name
+* Email
+* Vacancy
+* Date
+* Resume (Download PDF)
+
+#### Admin Tools
+
+* Filter by vacancy
+* Filter by date
+* Sorting (A→Z / Z→A / Date)
+* Search (optional bonus)
+
+---
+
+## 🛠️ Tech Stack
+
+* React + Vite
+* TailwindCSS
+* React Hook Form / Zod for Validation
+* Database
+
+---
+
+## 📦 Installation
+
 ```
+npm install
+npm run dev
+```
+---
+
+
+## 📝 Notes
+
+* UI/UX should be clean and modern
+* Make sure file upload strictly checks for PDF
+* Include helpful feedback messages
+
+---
+
+## ✔️ Requirements Checklist
+
+* [ ] Careers page with vacancy list
+* [ ] Apply form with validation
+* [ ] PDF-only upload
+* [ ] Success/error notifications
+* [ ] Admin panel with filtering & sorting
+* [ ] Resume download links
+
+---
+
