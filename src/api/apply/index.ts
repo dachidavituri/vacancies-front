@@ -1,16 +1,18 @@
 import { httpVacanciesClient } from "..";
 import type { ApplyFormInputs } from "./index.types";
 
-export const submitApplication = async (data: ApplyFormInputs & { vacancyId: number }) => {
+export const submitApplication = async (
+  data: ApplyFormInputs & { vacancyId: number },
+) => {
   if (!data.resume || data.resume.length === 0) {
     throw new Error("Please provide a resume file");
   }
 
-  const file = data.resume[0].originFileObj; 
+  const file = data.resume[0].originFileObj;
 
   if (!file) {
-  throw new Error("No resume file provided");
-}
+    throw new Error("No resume file provided");
+  }
 
   const formData = new FormData();
   formData.append("name", data.name);

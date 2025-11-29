@@ -14,13 +14,12 @@ const VacanciesView: React.FC = () => {
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [searchParams, setSearchParams] = useSearchParams();
   const defaultFilterValues = qs.parse(searchParams.toString());
-  const mutation = useSubmitApplication()
+  const mutation = useSubmitApplication();
   const { control, watch } = useForm<FilterValue>({
     defaultValues: defaultFilterValues || "",
   });
   const searched = watch("search");
-  const debouncedSearch = useDebounce(searched, 1500)
-  console.log(debouncedSearch)
+  const debouncedSearch = useDebounce(searched, 1500);
   useEffect(() => {
     if (searched) {
       setSearchParams(
@@ -36,8 +35,11 @@ const VacanciesView: React.FC = () => {
       setSearchParams({}, { replace: true });
     }
   }, [searched, setSearchParams]);
-  const { data: vacaciesData } = useGetVacancies(currentPage, 5, debouncedSearch);
-  console.log(vacaciesData)
+  const { data: vacaciesData } = useGetVacancies(
+    currentPage,
+    5,
+    debouncedSearch,
+  );
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedVacancy, setSelectedVacancy] = useState<Vacancy | null>(null);
   const [formKey, setFormKey] = useState<number>(0);
@@ -57,33 +59,32 @@ const VacanciesView: React.FC = () => {
       selectedVacancy && selectedVacancy.title,
       values,
     );
-    if(!selectedVacancy){
-      message.error('No vacancy selected');
+    if (!selectedVacancy) {
+      message.error("No vacancy selected");
       return;
     }
-    mutation.mutate({...values, vacancyId: selectedVacancy?.id})
+    mutation.mutate({ ...values, vacancyId: selectedVacancy?.id });
     message.success("თქვენი რეზიუმე წარმატებით გაიგზავნა!");
     handleCancel();
   };
 
   return (
-    <div className="p-2 flex flex-col items-center">
+    <div className="flex flex-col items-center p-2">
       <form className="w-full max-w-md">
-    <Controller
-      control={control}
-      name="search"
-      render={({ field }) => (
-        <Input
-          {...field}
-          placeholder="Search vacancies..."
-          size="large"
-          className="font-semibold"
+        <Controller
+          control={control}
+          name="search"
+          render={({ field }) => (
+            <Input
+              {...field}
+              placeholder="Search vacancies..."
+              size="large"
+              className="font-semibold"
+            />
+          )}
         />
-      )}
-    />
-  </form>
+      </form>
       {vacaciesData?.data.map((vacancy) => (
-
         <div
           key={vacancy.id}
           className="m-4 mt-8 w-[90%] overflow-hidden rounded-xl bg-linear-to-r from-[#F5C96B] to-[#FFE78F] shadow-lg transition-transform duration-300 hover:scale-105"

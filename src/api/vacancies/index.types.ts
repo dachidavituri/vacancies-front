@@ -13,5 +13,5 @@ export interface PaginatedVacancies {
 }
 
 export interface FilterValue {
-  search: string
+  search: string;
 }

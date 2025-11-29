@@ -21,14 +21,7 @@ const Footer: React.FC = () => {
           <ul className="space-y-2">
             {links.map((link) => (
               <li key={link.id}>
-                <NavLink
-                  to={link.path}
-                  className={({ isActive }) =>
-                    `transition-colors hover:text-[#3A6FF8] ${isActive ? "text-[#3A6FF8]" : ""}`
-                  }
-                >
-                  {link.name}
-                </NavLink>
+                <NavLink to={link.path}>{link.name}</NavLink>
               </li>
             ))}
           </ul>

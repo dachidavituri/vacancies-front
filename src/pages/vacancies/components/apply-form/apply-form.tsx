@@ -7,7 +7,6 @@ import { applyFormSchema } from "@/schema/index";
 import type { ApplyFormInputs, ApplyFormProps } from "./index.types";
 import { applyFormDefaultvalues } from "@/data";
 
-
 const ApplyForm: React.FC<ApplyFormProps> = ({ onFinish }) => {
   const [pdfUrl, setPdfUrl] = useState<string | null>(null);
   const [showPreview, setShowPreview] = useState(false);

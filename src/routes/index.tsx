@@ -1,10 +1,12 @@
 import { Routes, Route, Navigate } from "react-router";
 import { MAIN_ROUTES } from "./default-layout";
 import Layout from "@/components/layout/layout";
-import { Suspense } from "react";
+import { lazy, Suspense } from "react";
 import { ROOT_PATH } from "./index.enum";
-import NotFound from "@/pages/not-found";
 import { MAIN_PATH } from "./default-layout/index.enum";
+import Loading from "@/components/loading";
+const AdminView = lazy(() => import("@/pages/admin/views"));
+const NotFound = lazy(() => import("@/pages/not-found"));
 
 const AppRoutes = () => {
   return (
@@ -16,8 +18,16 @@ const AppRoutes = () => {
       <Route
         path={ROOT_PATH.NOTFOUND}
         element={
-          <Suspense>
+          <Suspense fallback={<Loading />}>
             <NotFound />
+          </Suspense>
+        }
+      ></Route>
+      <Route
+        path={ROOT_PATH.ADMIN}
+        element={
+          <Suspense fallback={<Loading />}>
+            <AdminView />
           </Suspense>
         }
       ></Route>

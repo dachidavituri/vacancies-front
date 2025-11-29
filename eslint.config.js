@@ -21,7 +21,8 @@ export default defineConfig([
     },
     rules: {
       "@typescript-eslint/no-explicit-any": "off",
-      'react-hooks/incompatible-library': "off"
+      "react-hooks/incompatible-library": "off",
+      '@typescript-eslint/no-unused-vars': 'off'
     },
   },
 ]);

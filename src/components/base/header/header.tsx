@@ -7,7 +7,7 @@ const Header: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <header className="bg-[#0C1220] font-sans text-[#DDE2E9] shadow-md">
+    <header className="bg-[#0C1220] text-[#DDE2E9] shadow-md">
       <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4">
         <NavLink to="/" className="text-2xl font-bold text-[#F5C96B]">
           Gstore Jobs
@@ -15,15 +15,7 @@ const Header: React.FC = () => {
 
         <nav className="hidden space-x-6 md:flex">
           {links.map((link) => (
-            <NavLink
-              key={link.name}
-              to={link.path}
-              className={({ isActive }) =>
-                `text-xl transition-colors hover:text-[#3A6FF8] ${
-                  isActive ? "text-[#3A6FF8]" : ""
-                }`
-              }
-            >
+            <NavLink key={link.name} to={link.path}>
               {link.name}
             </NavLink>
           ))}
@@ -41,11 +33,6 @@ const Header: React.FC = () => {
               key={link.name}
               to={link.path}
               onClick={() => setIsOpen(false)}
-              className={({ isActive }) =>
-                `block py-2 transition-colors hover:text-[#3A6FF8] ${
-                  isActive ? "text-[#3A6FF8]" : ""
-                }`
-              }
             >
               {link.name}
             </NavLink>

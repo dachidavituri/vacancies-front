@@ -6,7 +6,7 @@ import type { PaginatedVacancies } from "@/api/vacancies/index.types";
 export const useGetVacancies = (
   page: number,
   limit: number = 5,
-  search: string = ""
+  search: string = "",
 ): UseQueryResult<PaginatedVacancies, Error> => {
   return useQuery<PaginatedVacancies, Error>({
     queryKey: [VACANCIES_QUERY_KEYS.VACANCIES, page, limit, search],

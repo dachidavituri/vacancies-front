@@ -1,9 +1,9 @@
 import { Route } from "react-router";
 import { MAIN_PATH } from "./index.enum";
 import Loading from "@/components/loading";
-import { Suspense } from "react";
-import AboutView from "@/pages/about/views";
-import VacanciesView from "@/pages/vacancies/pages";
+import { lazy, Suspense } from "react";
+const AboutView = lazy(() => import("@/pages/about/views"));
+const VacanciesView = lazy(() => import("@/pages/vacancies/pages"));
 
 export const MAIN_ROUTES = [
   <Route

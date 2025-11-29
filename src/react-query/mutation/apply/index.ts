@@ -8,7 +8,10 @@ export const useSubmitApplication = () => {
       console.log("Application submitted successfully", data);
     },
     onError: (error: any) => {
-      console.error("Error submitting application:", error.response?.data || error.message);
+      console.error(
+        "Error submitting application:",
+        error.response?.data || error.message,
+      );
     },
   });
 };

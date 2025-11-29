@@ -4,6 +4,6 @@ export interface ApplyFormInputs {
   name: string;
   email: string;
   phone: string;
-  vacancyId: number; 
+  vacancyId: number;
   resume: UploadFile[];
 }
