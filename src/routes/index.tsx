@@ -5,7 +5,7 @@ import { lazy, Suspense } from "react";
 import { ROOT_PATH } from "./index.enum";
 import { MAIN_PATH } from "./default-layout/index.enum";
 import Loading from "@/components/loading";
-const AdminView = lazy(() => import("@/pages/admin/views"));
+const AdminPage = lazy(() => import("@/pages/admin/views/admin-page"));
 const NotFound = lazy(() => import("@/pages/not-found"));
 
 const AppRoutes = () => {
@@ -27,7 +27,7 @@ const AppRoutes = () => {
         path={ROOT_PATH.ADMIN}
         element={
           <Suspense fallback={<Loading />}>
-            <AdminView />
+            <AdminPage />
           </Suspense>
         }
       ></Route>

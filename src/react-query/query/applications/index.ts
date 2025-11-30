@@ -9,15 +9,15 @@ import { getApplications } from "@/api/applications";
 export const useGetApplications = (
   params?: GetApplicationsParams,
 ): UseQueryResult<GetApplicationsResponse, Error> => {
-    return useQuery<GetApplicationsResponse, Error>({
-        queryKey: [
-            APPLICATIONS_QUERY_KEYS.APPLICATIONS,
-            params?.vacancyId,
-            params?.date,
-            params?.order,
-            params?.sortBy
-        ],
-        queryFn: () => getApplications(params),
-        staleTime: 1000 * 60
-    })
+  return useQuery<GetApplicationsResponse, Error>({
+    queryKey: [
+      APPLICATIONS_QUERY_KEYS.APPLICATIONS,
+      params?.vacancyId,
+      params?.date,
+      params?.order,
+      params?.sortBy,
+    ],
+    queryFn: () => getApplications(params),
+    staleTime: 1000 * 60,
+  });
 };

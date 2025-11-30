@@ -5,3 +5,11 @@ const axiosConfigVacancies: CreateAxiosDefaults = {
 };
 
 export const httpVacanciesClient = axios.create(axiosConfigVacancies);
+
+httpVacanciesClient.interceptors.request.use((config) => {
+  const token = localStorage.getItem("token");
+  if (token && config.headers) {
+    config.headers.Authorization = `Bearer ${token}`;
+  }
+  return config;
+});

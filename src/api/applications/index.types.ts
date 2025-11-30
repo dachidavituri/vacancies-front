@@ -13,7 +13,7 @@ export interface Application {
   vacancyId: number;
   resumePath: string;
   date: string;
-  vacancyTitle: string
+  vacancyTitle: string;
 }
 
 export interface GetApplicationsResponse {

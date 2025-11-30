@@ -26,12 +26,14 @@ export const getApplications = async (
   }
 };
 
-
-export const downloadResume = async (applicationId: number, fileName: string) => {
+export const downloadResume = async (
+  applicationId: number,
+  fileName: string,
+) => {
   try {
     const response = await httpVacanciesClient.get<Blob>(
       `/applications/download/${applicationId}`,
-      { responseType: "blob" }
+      { responseType: "blob" },
     );
 
     const url = window.URL.createObjectURL(new Blob([response.data]));

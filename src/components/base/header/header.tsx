@@ -27,7 +27,7 @@ const Header: React.FC = () => {
         </div>
       </div>
       {isOpen && (
-        <nav className="space-y-2 bg-[#0C1220] px-6 pb-4 md:hidden">
+        <nav className="flex flex-col gap-3 space-y-2 bg-[#0C1220] px-6 pb-4 md:hidden">
           {links.map((link) => (
             <NavLink
               key={link.name}
